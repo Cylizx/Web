@@ -8,62 +8,30 @@
     width:150px;
    }
   </style>
-  <script type="text/javascript">
-   window.onload = function(){
-
-    var big = document.getElementById("big");
-    var small = document.getElementById("small");
-    var mine = document.getElementById("mine");
-    var guess = document.getElementById("guess");
-    var computer = document.getElementById("computer");
-
-
-    
-
-    function click(){
-     mine.value = this.value;
-    }
-
-    big.onclick = click;
-    small.onclick = click;
-
-
-    guess.onclick = function(){
-     var num = Math.floor(Math.random()* 2 + 1);
-     if(num == 1)
-        computer.value = "大";
-     else if(num == 2)
-         computer.value = "小";
-
-
-     var mineValue = mine.value;
-     var computerValue = computer.value;
-
-     if(mineValue == "大")
-        alert(computerValue == "小" ? "恭喜你你赢了" : "输了，结果是小，你赌的是大");
-      else if(mineValue == "小")
-        alert(computerValue == "大" ? "恭喜你你赢了" : "输了，结果是大，你赌的是小");
-
-
-      mine.value ="";
-      computer.value ="";
-    }
-   }
-  </script>
     </head>
     <body>
     <center>
+    <form action="/views" method="get">
+    赌大: <input type="radio"  name="big"> <br>
+    赌小: <input type="radio"  name="small"> <br>
 
-            <br/><br/><br/><br/>
+    <input type="submit" value="提交">
+    </form>
+
+    </body>
+</html>
+
+
+<!--            <br/><br/><br/><br/>
             <H2>澳门首家区块链赌场上线了</H2>
             <p>美女荷官在线发牌</p>
             <font size="3"><b>点数为下一个区块地址的最后一位数字，0~7为小，8～F为大</b></font
             <br/><br/><br/>
+
+
      <input type="button" value="大" id="big">
   <input type="button" value="小" id="small">
  <br><br>
-  您下的注是:<input id="mine"><br><br>
+
   <input type="button" value="下注！" id="guess"><br><br>
         <h1 id="computer"></h1>
-    </body>
-</html>
