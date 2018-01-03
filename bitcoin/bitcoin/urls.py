@@ -20,6 +20,8 @@ from django.urls import path
 from django.contrib import admin
 from dice import views as dice_views
 
+admin.autodiscover()
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC_URL = '/static/'
 
@@ -43,7 +45,9 @@ STATICFILES_FINDERS = (
 )
 
 urlpatterns = [
-    path('', dice_views.home, name='home'),
-    # path('admin/', admin.site.urls),
+    path('', dice_views.home),
+    path('result/', dice_views.result, name='result'),
+    path('loading/', dice_views.loading, name='loading'),
     path('player/', dice_views.player, name='player'),
+    path('admin/', admin.site.urls),
 ]

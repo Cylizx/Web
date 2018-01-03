@@ -5,7 +5,8 @@ class Player(models.Model):
     name = models.CharField(max_length=30)
     result = models.BooleanField()
     transaction = models.IntegerField()
-    balance = models.IntegerField() 
+    balance = models.IntegerField()
+    status = models.BooleanField()
     def __unicode__(self):
     # 在Python3中使用 def __str__(self):
         return self.name
