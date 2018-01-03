@@ -24,7 +24,7 @@ SECRET_KEY = 'n*(9%6iguanj3%t7ccbo(4jg+derv4oma$-go@9co_no1jbtn0'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['blockexplorer.jas0n1ee.me']
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/

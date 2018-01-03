@@ -3,7 +3,41 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from dice import models
+
+from pow.fullnode import *
+import network,_thread,time
+from messages import *
+
 import random
+_thread.start_new_thread(network.init,(10083,))
+person_account={0:'A',1:'B',2:'D',3:'E',4:'F',5:'G'}
+
+wallet={}
+for p in ['A','B','D','E','F','G']:
+	with open (p+'_addr.json','r') as f:
+		wallet[p] = json.load(f)[0]
+
+def get_next_header():
+    old = ""
+    with open('block/head.json','r') as f:
+        old = json.load(f)[0]
+    while True:
+        time.sleep(1)
+        with open('block/head.json','r') as f:
+             curr = json.load(f)[0]
+             if old != curr:
+                 return curr
+
+def get_addr_value(addr):
+    m = Fullnode()
+    m.load_latest_block()
+    return m.get_addr_value(addr)
+
+def send_transaction(dst_addr,value,key):
+    m = Fullnode()
+    m.load_key(key)
+    tr = m.create_transaction(dst_addr,value)
+    network.broadcast_message(TxMessage(tr))
 
 # Create your views here.
 
@@ -22,21 +56,26 @@ def result(request):
     for i in range(6):
         if p[i].result == True:
             win_num += 1
-            win.append(models.Player.objects.get(id=(i+1)))
+            win.append(i)
         else:
             lose_num += 1
-            lose.append(models.Player.objects.get(id=(i+1)))
-    win_coin = lose_num / win_num
+            lose.append(i)
+    if win_num == 0 or lose_num == 0:
+        return render(request, 'result.html',{"player":p})
+
+    win_coin = lose_num *1.0 / win_num
+
     for i in range(6):
         if p[i].result == False:
             p[i].transaction = -1
-            p[i].balance -= 1
+            p[i].balance = get_addr_value(wallet[person_account[i]])
         else :
             p[i].transaction = win_coin
-            p[i].balance -= p[i].transaction
-    for i in range(len(win)):
-        for m in range(len(lose)):
-            send_transaction(p[i],p[m],1)
+            p[i].balance = get_addr_value(wallet[person_account[i]])
+
+    for i in win:
+        for m in lose:
+            send_transaction(wallet[person_account[i]],win_coin,person_account[m]+'.json')
 
     return render(request, 'result.html',{"player":p})
 
