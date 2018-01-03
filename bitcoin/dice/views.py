@@ -9,7 +9,7 @@ import network,_thread,time
 from messages import *
 
 import random
-_thread.start_new_thread(network.init,(10083,))
+_thread.start_new_thread(network.init,(10084,))
 person_account={0:'A',1:'B',2:'D',3:'E',4:'F',5:'G'}
 
 wallet={}
@@ -62,15 +62,18 @@ def result(request):
             lose.append(i)
     if win_num == 0 or lose_num == 0:
         return render(request, 'result.html',{"player":p})
+        for i in range(6):
+            models.Player.objects.filter(id=i+1).update(status=False)
 
-    win_coin = lose_num *1.0 / win_num
+    win_coin = 1.0 /win_num
 
     for i in range(6):
+        models.Player.objects.filter(id=i+1).update(status=False)
         if p[i].result == False:
             p[i].transaction = -1
             p[i].balance = get_addr_value(wallet[person_account[i]])
         else :
-            p[i].transaction = win_coin
+            p[i].transaction = win_coin * lose_num
             p[i].balance = get_addr_value(wallet[person_account[i]])
 
     for i in win:
@@ -103,7 +106,12 @@ def loading(request):
 
     if flag==False:
         message = "正在等待开奖，请稍后……"
-    else: message = "结果已经出来了，点击下方按钮查看"
+    else: 
+        message = "结果已经出来了，点击下方按钮查看"
+        if get_next_header()[-1]<'8':
+            for i in range(6):
+                models.Player.objects.filter(id=i+1).update(result=not models.Player.objects.get(id=i+1).result)
+
     return render(request, 'loading.html', {"status":message})
  
 def player(request):
