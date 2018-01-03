@@ -25,9 +25,6 @@ def home(request):
  
 def index(request):
     return render(request, 'index.html')
-
-def player(request):
-    return render(request, 'player.html')
      
 def add(request):
     a = request.GET['a']
@@ -37,20 +34,18 @@ def add(request):
     return HttpResponse(str(a+b))
 
 def judge(request):
-    bet= request.getParameter("bet")
+
+    if 'big' in request.GET:
+        a = [8, 15]
+        message = '你赌的是大'
+    if 'small' in request.GET:
+        a = [0, 7]
+        message = '你赌的是小'
     c = random.randint(0,15)
-    print 
-    if bet == 1:
-        a = [8,15]
-        return a
-    elif bet == 0:
-        a = [0,7]
-        return a
     if c in a:
         result = 1
-        return result
+
     else:
         result = 0
-        return result
-        
-    return HttpResponse(result)
+
+    return HttpResponse(message)
