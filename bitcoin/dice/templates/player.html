@@ -31,18 +31,18 @@
     guess.onclick = function(){
      var num = Math.floor(Math.random()* 2 + 1);
      if(num == 1)
-        computer.value = "´ó";
+        computer.value = "å¤§";
      else if(num == 2)
-         computer.value = "Ğ¡";
+         computer.value = "å°";
 
 
      var mineValue = mine.value;
      var computerValue = computer.value;
 
-     if(mineValue == "´ó")
-        alert(computerValue == "Ğ¡" ? "¹§Ï²ÄãÄãÓ®ÁË" : "ÊäÁË£¬½á¹ûÊÇĞ¡£¬Äã¶ÄµÄÊÇ´ó");
-      else if(mineValue == "Ğ¡")
-        alert(computerValue == "´ó" ? "¹§Ï²ÄãÄãÓ®ÁË" : "ÊäÁË£¬½á¹ûÊÇ´ó£¬Äã¶ÄµÄÊÇĞ¡");
+     if(mineValue == "å¤§")
+        alert(computerValue == "å°" ? "æ­å–œä½ ä½ èµ¢äº†" : "è¾“äº†ï¼Œç»“æœæ˜¯å°ï¼Œä½ èµŒçš„æ˜¯å¤§");
+      else if(mineValue == "å°")
+        alert(computerValue == "å¤§" ? "æ­å–œä½ ä½ èµ¢äº†" : "è¾“äº†ï¼Œç»“æœæ˜¯å¤§ï¼Œä½ èµŒçš„æ˜¯å°");
 
 
       mine.value ="";
@@ -55,15 +55,15 @@
     <center>
 
             <br/><br/><br/><br/>
-            <H2>°ÄÃÅÊ×¼ÒÇø¿éÁ´¶Ä³¡ÉÏÏßÁË</H2>
-            <p>ÃÀÅ®ºÉ¹ÙÔÚÏß·¢ÅÆ</p>
-            <font size="3"><b>µãÊıÎªÏÂÒ»¸öÇø¿éµØÖ·µÄ×îºóÒ»Î»Êı×Ö£¬0~7ÎªĞ¡£¬8¡«FÎª´ó</b></font
+            <H2>æ¾³é—¨é¦–å®¶åŒºå—é“¾èµŒåœºä¸Šçº¿äº†</H2>
+            <p>ç¾å¥³è·å®˜åœ¨çº¿å‘ç‰Œ</p>
+            <font size="3"><b>ç‚¹æ•°ä¸ºä¸‹ä¸€ä¸ªåŒºå—åœ°å€çš„æœ€åä¸€ä½æ•°å­—ï¼Œ0~7ä¸ºå°ï¼Œ8ï½Fä¸ºå¤§</b></font
             <br/><br/><br/>
-     <input type="button" value="´ó" id="big">
-  <input type="button" value="Ğ¡" id="small">
+     <input type="button" value="å¤§" id="big">
+  <input type="button" value="å°" id="small">
  <br><br>
-  ÄúÏÂµÄ×¢ÊÇ:<input id="mine"><br><br>
-  <input type="button" value="ÏÂ×¢£¡" id="guess"><br><br>
+  æ‚¨ä¸‹çš„æ³¨æ˜¯:<input id="mine"><br><br>
+  <input type="button" value="ä¸‹æ³¨ï¼" id="guess"><br><br>
         <h1 id="computer"></h1>
     </body>
 </html>

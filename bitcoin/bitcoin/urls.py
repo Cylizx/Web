@@ -44,5 +44,6 @@ STATICFILES_FINDERS = (
 
 urlpatterns = [
     path('', dice_views.home, name='home'),
-    path('admin/', admin.site.urls),
+    # path('admin/', admin.site.urls),
+    path('player/', dice_views.player, name='player'),
 ]

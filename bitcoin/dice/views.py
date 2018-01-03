@@ -25,6 +25,9 @@ def home(request):
  
 def index(request):
     return render(request, 'index.html')
+
+def player(request):
+    return render(request, 'player.html')
      
 def add(request):
     a = request.GET['a']
