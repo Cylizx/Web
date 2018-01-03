@@ -13,6 +13,9 @@ def func(request):
     # 如果Ajax使用了GET方法，把下面的POST换成GET即可
     name = request.POST['name']
     age = request.POST['age']
+
+def player(request):
+    return render(request, 'player.html')
     
 def home(request):
     p1 = models.Player.objects.get(id=1)
