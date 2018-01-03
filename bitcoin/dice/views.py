@@ -12,12 +12,33 @@ def home(request):
 
 def result(request):
     p = []
-    i = 0
-    print (type(models.Player.objects.get(id=1)))
+    win = []
+    lose = []
+    win_num = 0
+    lose_num = 0
+    win_coin = 0
     for i in range(6):
-        p.append(models.Player.objects.get(id=i+1))
-        models.Player.objects.filter(id=i+1).update(status=False)
-    return render(request, 'result.html',{"p1":p[0],"p2":p[1],"p3":p[2],"p4":p[3],"p5":p[4],"p6":p[5],})
+        p.append(models.Player.objects.get(id=(i+1)))
+    for i in range(6):
+        if p[i].result == True:
+            win_num += 1
+            win.append(models.Player.objects.get(id=(i+1)))
+        else:
+            lose_num += 1
+            lose.append(models.Player.objects.get(id=(i+1)))
+    win_coin = lose_num / win_num
+    for i in range(6):
+        if p[i].result == False:
+            p[i].transaction = -1
+            p[i].balance -= 1
+        else :
+            p[i].transaction = win_coin
+            p[i].balance -= p[i].transaction
+    for i in range(len(win)):
+        for m in range(len(lose)):
+            send_transaction(p[i],p[m],1)
+
+    return render(request, 'result.html',{"player":p})
 
 def loading(request):
     flag = True
